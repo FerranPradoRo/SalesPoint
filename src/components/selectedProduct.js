@@ -1,24 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const SelectedProduct = ({ product }) => {
+const SelectedProduct = ({ product, handleClickTicket, idTicketProduct }) => {
+  const { id, name, price } = product;
   const [productQuantity, setProductQuantity] = useState(1);
   const [isInput, setIsInput] = useState(false);
+  const [amount, setAmount] = useState(price);
+  useEffect(() => {
+    handleClickTicket({
+      id,
+      idTicketProduct,
+      name,
+      price,
+      productQuantity,
+      amount,
+    });
+  }, [amount]);
   return (
-    <div>
-      <p onClick={() => setIsInput(true)}>{product.name}</p>
+    <tr>
+      <td className='products-table-name'>{name}</td>
       {isInput ? (
-        <form onSubmit={() => setIsInput(false)}>
-          <input
-            value={productQuantity}
-            onChange={(e) => setProductQuantity(e.target.value)}
-            autoFocus='autoFocus'
-            onFocus={(e) => e.target.select()}
-          />
-        </form>
+        <td>
+          <form
+            onSubmit={() => {
+              setIsInput(false);
+              setAmount(price * productQuantity);
+            }}
+          >
+            <input
+              type='number'
+              value={productQuantity}
+              onChange={(e) => {
+                setProductQuantity(e.target.value);
+              }}
+              autoFocus='autoFocus'
+              onFocus={(e) => e.target.select()}
+            />
+          </form>
+        </td>
       ) : (
-        <span onClick={() => setIsInput(true)}>{productQuantity}</span>
+        <td onClick={() => setIsInput(true)}>{productQuantity}</td>
       )}
-    </div>
+      <td>{amount}</td>
+    </tr>
   );
 };
 

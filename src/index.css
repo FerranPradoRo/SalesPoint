@@ -15,3 +15,17 @@ code {
 .single-product {
   display: flex;
 }
+
+.products-table {
+  border-collapse: collapse;
+}
+
+.products-table table,
+th,
+td {
+  border: 1px solid black;
+}
+
+.products-table-name {
+  width: 300px;
+}
