@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-const SelectedProduct = ({ product, handleClickTicket, idTicketProduct }) => {
+const SingleSelectedProduct = ({ product, handleClick, idTicketProduct }) => {
   const { id, name, price } = product;
   const [productQuantity, setProductQuantity] = useState(1);
   const [isInput, setIsInput] = useState(false);
   const [amount, setAmount] = useState(price);
   useEffect(() => {
-    handleClickTicket({
+    handleClick({
       id,
       idTicketProduct,
       name,
@@ -45,4 +45,4 @@ const SelectedProduct = ({ product, handleClickTicket, idTicketProduct }) => {
   );
 };
 
-export default SelectedProduct;
+export default SingleSelectedProduct;
