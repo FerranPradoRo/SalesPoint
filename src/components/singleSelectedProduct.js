@@ -16,10 +16,10 @@ const SingleSelectedProduct = ({ product, handleClick, idTicketProduct }) => {
     });
   }, [amount]);
   return (
-    <tr>
-      <td className='products-table-name'>{name}</td>
+    <div className='products-table-row'>
+      <p>{name}</p>
       {isInput ? (
-        <td>
+        <div>
           <form
             onSubmit={() => {
               setIsInput(false);
@@ -27,6 +27,7 @@ const SingleSelectedProduct = ({ product, handleClick, idTicketProduct }) => {
             }}
           >
             <input
+              className='quantity-input'
               type='number'
               value={productQuantity}
               onChange={(e) => {
@@ -36,12 +37,12 @@ const SingleSelectedProduct = ({ product, handleClick, idTicketProduct }) => {
               onFocus={(e) => e.target.select()}
             />
           </form>
-        </td>
+        </div>
       ) : (
-        <td onClick={() => setIsInput(true)}>{productQuantity}</td>
+        <p onClick={() => setIsInput(true)}>{productQuantity}</p>
       )}
-      <td>{amount}</td>
-    </tr>
+      <p>{amount.toLocaleString('en-US')}</p>
+    </div>
   );
 };
 

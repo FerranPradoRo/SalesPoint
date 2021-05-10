@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import SingleSelectedProduct from './singleSelectedProduct';
 import { useCreateTicket } from '../hooks/useCreateTicket';
+import Loading from './loading';
 
 const SelectedProducts = ({ selectedProducts, cleanSelectedProducts }) => {
   const [ticket, setTicket] = useState([]);
@@ -24,15 +25,13 @@ const SelectedProducts = ({ selectedProducts, cleanSelectedProducts }) => {
   let idTicketProduct = 0;
   return (
     <>
-      <table className='products-table'>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Quantity</th>
-            <th>Amount</th>
-          </tr>
-        </thead>
-        <tbody>
+      <div className='selected-products-table'>
+        <div className='products-table-row table-head'>
+          <p>Name</p>
+          <p>Quantity</p>
+          <p>Amount</p>
+        </div>
+        <div>
           {selectedProducts.map((product) => {
             idTicketProduct = idTicketProduct + 1;
             return (
@@ -44,11 +43,15 @@ const SelectedProducts = ({ selectedProducts, cleanSelectedProducts }) => {
               />
             );
           })}
-        </tbody>
-      </table>
-      <button onClick={() => createTicket(ticket, cleanSelectedProducts)}>
+        </div>
+      </div>
+      <button
+        className='btn'
+        onClick={() => createTicket(ticket, cleanSelectedProducts)}
+      >
         Save
       </button>
+      {isLoading && <Loading />}
     </>
   );
 };

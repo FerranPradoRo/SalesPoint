@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useGetProducts } from '../hooks/useGetProducts';
+
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import firebase from '../firebase';
 import 'firebase/firestore';
@@ -7,23 +9,10 @@ import 'firebase/firestore';
 const firestore = firebase.firestore();
 
 const Tickets = () => {
-  firestore.collection('tickets').onSnapshot((snapshot) => {
-    snapshot.docs.forEach((doc) => {
-      firestore
-        .collection('tickets')
-        .doc(doc.id)
-        .collection('products')
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            console.log(doc.data());
-          });
-        });
-    });
-  });
-
-  // return <div>{data && data.map((ticket) => <p>Ticket</p>)}</div>;
-  return <p>hrello</p>;
+  const ticketsRef = firestore.collection('tickets');
+  const [ticketsData] = useCollectionData(ticketsRef, { idField: 'id' });
+  const [tickets] = useGetProducts(ticketsData);
+  return <div>{tickets && tickets.map((ticket) => <p>{ticket.id}</p>)}</div>;
 };
 
 export default Tickets;

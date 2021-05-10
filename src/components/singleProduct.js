@@ -1,15 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const SingleProduct = ({ product, handleClick }) => {
-  const { id, name, price } = product;
+  const { name, price } = product;
   return (
-    <option
-      value={id}
-      className='single-product'
-      onClick={() => handleClick(product)}
-    >
-      {name} : {price}
-    </option>
+    <div className='single-product' onClick={() => handleClick(product)}>
+      <p>{name}</p>
+      <p>$ {price.toLocaleString('en-US')}</p>
+    </div>
   );
 };
 

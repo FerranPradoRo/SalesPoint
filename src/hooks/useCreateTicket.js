@@ -24,7 +24,7 @@ export const useCreateTicket = (ticket, cleanSelectedProducts) => {
           ticketId = doc.id;
         });
       });
-    ticket.map((product) => {
+    ticket.forEach((product) => {
       firestore.collection('tickets').doc(ticketId).collection('products').add({
         id: product.id,
         idTicketProduct: product.idTicketProduct,

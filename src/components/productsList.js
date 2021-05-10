@@ -1,9 +1,17 @@
 import React from 'react';
 import SingleProduct from './singleProduct';
 
-const ProductsList = ({ data, handleClick }) => {
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+import firebase from '../firebase';
+import 'firebase/firestore';
+
+const firestore = firebase.firestore();
+
+const ProductsList = ({ handleClick }) => {
+  const dataRef = firestore.collection('products');
+  const [data] = useCollectionData(dataRef);
   return (
-    <select>
+    <div className='products-list'>
       {data &&
         data.map((product) => (
           <SingleProduct
@@ -12,7 +20,7 @@ const ProductsList = ({ data, handleClick }) => {
             handleClick={handleClick}
           />
         ))}
-    </select>
+    </div>
   );
 };
 
